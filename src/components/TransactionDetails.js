@@ -4,6 +4,7 @@ import { defineMessages, injectIntl, FormattedNumber, FormattedMessage } from 'r
 import { imagePreview, capitalize } from '../lib/utils';
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
+import RefundTransactionBtn from './RefundTransactionBtn';
 
 class TransactionDetails extends React.Component {
 
@@ -81,6 +82,9 @@ class TransactionDetails extends React.Component {
           .netAmountInCollectiveCurrency {
             font-weight: bold;
           }
+          .TransactionDetails .actions {
+             clear: both;
+          }
 
           @media(max-width: 600px) {
             .TransactionDetails {
@@ -137,6 +141,14 @@ class TransactionDetails extends React.Component {
             </div>
           </div>
         }
+        <div className="actions">
+          {(LoggedInUser && LoggedInUser.isRoot()) &&
+           <div className="transactionActions">
+             <RefundTransactionBtn transaction={transaction} />
+           </div>
+          }
+        </div>
+
       </div>
     );
   }
